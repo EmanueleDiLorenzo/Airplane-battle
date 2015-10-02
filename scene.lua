@@ -87,12 +87,17 @@ function Game:load(arg)
   Gamestate.score = self.score
   self.player = {x =200, y = 610, speed = 400, img=nil}
   self.bulletImg = love.graphics.newImage('assets/bullets.png')
-  self.player.img = love.graphics.newImage('assets/plane.png')
+  self.player.img = love.graphics.newImage('assets/plane2.png')
   self.enemyImg = love.graphics.newImage('assets/enemy.png')
   self.powerImg = love.graphics.newImage('assets/power.png')
 
 end
 function Game:draw(dt)
+  for i = 0, love.graphics.getWidth() / background:getWidth() do
+      for j = 0, love.graphics.getHeight() / background:getHeight() do
+           love.graphics.draw(background, i * background:getWidth(), j * background:getHeight())
+       end
+  end
   love.graphics.draw(self.player.img, self.player.x,self.player.y)
   love.graphics.print("SCORE:",love.graphics:getWidth()/2-230, love.graphics:getHeight()/2-370)
   love.graphics.print(Gamestate.score , love.graphics:getWidth()/2-150, love.graphics:getHeight()/2-370)
@@ -137,7 +142,7 @@ function Game:update(dt)
     sound:rewind()
     sound:play()
 
-    self.newBullet = { x = self.player.x + (self.player.img:getWidth()/2), y = self.player.y, img = self.bulletImg }
+    self.newBullet = { x = self.player.x + (self.player.img:getWidth()/2 -6), y = self.player.y, img = self.bulletImg }
     table.insert(self.bullets, self.newBullet)
     self.canShoot = false
     self.canShootTimer = self.canShootTimerMax
